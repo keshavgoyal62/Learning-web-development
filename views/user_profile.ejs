@@ -2,3 +2,10 @@
 <h1>
     Codeial / <%= title %>
 </h1>
+<p>Name : <%=user.name%></p>
+<p>Email : <%=user.email%></p>
+<p>
+<form action="/user/sign-out" method="POST">
+    <input type="submit" value="sign-out">
+</form>
+</p>

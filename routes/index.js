@@ -4,7 +4,7 @@ const router = express.Router();
 
 const homeController=require('../controllers/home_controllers');
 
-console.log('router loaded')
+console.log('router loaded');
 
 router.get('/',homeController.home);
 router.use('/user',require('./user'));

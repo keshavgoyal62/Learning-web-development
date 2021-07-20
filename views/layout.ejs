@@ -1,13 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <link rel="stylesheet" href="/css/header.css">
     <link rel="stylesheet" href="/css/layout.css">
+    <link rel="stylesheet" href="/css/footer.css">
     <title><%= title %>></title>
     <%- style %>
 </head>
 <body>
     <%- include('_header'); %>
+    <main id="layout-main">
     <%- body %>
+    </main>
     <%- include('_footer'); %>
     <%- script %>
 </body>

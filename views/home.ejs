@@ -13,37 +13,7 @@
     <div id="posts-list-container">
         <ul>
             <% for(post of posts){ %>
-                <li>
-                    <p>
-                        <%=  post.content%>
-                    <small>
-                        <%= post.user.name %>
-                    </small>
-                    </p>
-                    <div class="post-comments">
-                        <%if(locals.user){%>
-                            <form action="/comment/create" method="POST">
-                                <input type="text" name="content" placeholder="type your comment here..." required>
-                                <input type="hidden" name="post" value="<%=post._id%>">
-                                <input type="submit" value="add comment">
-                            </form>
-                        <%}%>
-                        <div class="post-comment-list">
-                            <ul id="post-comments-<%=post._id%>">
-                                <% for(comment of post.comments){%>
-                                    <p>
-                                        <%= comment.content %>
-                                        <br>
-                                        <small>
-                                            <%= comment.user.name %>
-                                        </small>
-                                    </p>
-                                <%}%>
-                            </ul>
-                        </div>
-                    </div>
-                </li>
-                
+                <%-include('_post')-%>
             <% } %>
         </ul>
     </div>

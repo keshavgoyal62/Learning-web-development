@@ -1,31 +1,35 @@
 const Post = require('../models/post');
 const Comment = require('../models/comment');
 
-module.exports.create =function(req,res){
-    Post.create({
-        content: req.body.content,
-        user: req.user._id
-    },function(err,post){
-        if(err){
-            console.log('error in creating the post');
-            return ;
-        }
-        console.log('here');
+module.exports.create = async function(req,res){
+    try{
+        await Post.create({
+            content: req.body.content,
+            user: req.user._id
+        });
         return res.redirect('back');
-    });
+    }
+    catch(err){
+        console.log(err);
+        return ;
+    }
 }
 
-module.exports.destroy = function(req,res){
-    Post.findById(req.params.id,function(err,post){
-        //.id is a mongoose functionality which converts the object onto string
-        if(post.user==req.user.id){
-            post.remove();
-            Comment.deleteMany({post: req.params.id},function(err){
+module.exports.destroy = async function(req,res){
+        try{
+            let post = await Post.findById(req.params.id)
+            //.id is a mongoose functionality which converts the object onto string
+            if(post.user==req.user.id){
+                post.remove();
+                await Comment.deleteMany({post: req.params.id});
                 return res.redirect('back');
-            })
+            }
+            else{
+                res.redirect('back');
+            }
         }
-        else{
-            res.redirect('back');
+        catch(err){
+            console.log(err);
+            return;
         }
-    });
 }

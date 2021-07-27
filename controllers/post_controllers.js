@@ -9,10 +9,11 @@ module.exports.create = async function(req,res){
         });
 
         if(req.xhr){
+            post = await post.populate('user', 'name').execPopulate();
             return res.status(200).json({
                 data:{
                     post: post,
-
+                    
                 },
                 message: "Post created!"
             });
@@ -23,13 +24,13 @@ module.exports.create = async function(req,res){
     }
     catch(err){
         console.log('error',err);
-        return ;
+        return res.redirect('back');
     }
 }
 
 module.exports.destroy = async function(req,res){
         try{
-            let post = await Post.findById(req.params.id)
+            let post = await Post.findById(req.params.id);
             //.id is a mongoose functionality which converts the object onto string
             if(post.user==req.user.id){
                 post.remove();
